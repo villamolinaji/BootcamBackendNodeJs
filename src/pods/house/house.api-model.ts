@@ -1,4 +1,3 @@
-import { Review } from '.';
 export interface House {
     id: string;
     title: string;
@@ -9,7 +8,14 @@ export interface House {
     bedrooms: number;
     beds: number;
     bathrooms: number;
-    images: Array<string>;
-    //reviews: Array<Review>;
+    image: string;
+    reviews: Review[];
   }
   
+  export interface Review {
+    id: string;    
+    date: Date;
+    reviewer_name: string;
+    comments: string;
+    house_id: string;
+  }
