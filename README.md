@@ -13,5 +13,6 @@
 * MongoDB: npm install mongodb --save;
 npm install @types/mongodb --save-dev
 * path: npm install --save path
+* test: npm install jest @types/jest ts-jest --save-dev
 
 ## Estructura carpetas

@@ -3,46 +3,46 @@ export interface House {
     _id: string;
     name: string;
     summary: string;
-    space: string;
-    description: string;
-    neighborhood_overview: string;
-    notes: string;
-    transit: string;
-    access: string;
-    interaction: string;
-    house_rules: string;
-    property_type: string;
-    room_type: string;
-    bed_type: string;
-    minimum_nights: string;
-    maximum_nights: string;
-    cancellation_policy: string;
-    last_scraped: Date;
-    calendar_last_scraped: Date;
-    accommodates: number;    
+    space?: string;
+    description?: string;
+    neighborhood_overview?: string;
+    notes?: string;
+    transit?: string;
+    access?: string;
+    interaction?: string;
+    house_rules?: string;
+    property_type?: string;
+    room_type?: string;
+    bed_type?: string;
+    minimum_nights?: string;
+    maximum_nights?: string;
+    cancellation_policy?: string;
+    last_scraped?: Date;
+    calendar_last_scraped?: Date;
+    accommodates?: number;    
     bedrooms: number;
     beds: number;
     bathrooms: number;
-    amenities: string[];    
-    price: number;    
-    weekly_price: number;    
-    monthly_price: number;    
-    cleaning_fee: number;    
-    extra_people: number;    
-    guests_included: number;    
+    amenities?: string[];    
+    price?: number;    
+    weekly_price?: number;    
+    monthly_price?: number;    
+    cleaning_fee?: number;    
+    extra_people?: number;    
+    guests_included?: number;    
     images: Image;
-    host: Host;    
+    host?: Host;    
     address: Address;    
-    availability: Availability;
-    review_scores: ReviewScores;  
+    availability?: Availability;
+    review_scores?: ReviewScores;  
     reviews: Review[];
   }
   
   export interface Image {
-    thumbnail_url: string;    
-    medium_url: string;  
+    thumbnail_url?: string;    
+    medium_url?: string;  
     picture_url: string;  
-    xl_picture_url: string;      
+    xl_picture_url?: string;      
   }
 
   export interface Host {
@@ -64,12 +64,12 @@ export interface House {
 
   export interface Address {
     street: string;
-    suburb: string;
-    government_area: string;
+    suburb?: string;
+    government_area?: string;
     market: string;        
     country: string;    
     country_code: string;  
-    location: Location;  
+    location?: Location;  
   }
 
   export interface Location {
@@ -98,8 +98,8 @@ export interface House {
   export interface Review {
     _id: string;
     date: Date;
-    listing_id: string;
-    reviewer_id: string;
+    listing_id?: string;
+    reviewer_id?: string;
     reviewer_name: string;
     comments: string;
   }

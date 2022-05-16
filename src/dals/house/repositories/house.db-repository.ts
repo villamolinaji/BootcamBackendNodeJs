@@ -3,7 +3,7 @@ import { HouseRepository } from './house.repository';
 import { House } from '../house.model';
 import { getDBInstance } from 'core/servers';
 import { Review } from 'pods/house/house.api-model';
-import { compareReviews, mapReviewFromApiToModel, mapReviewFromModelToApi } from 'pods/house/house.mappers';
+import { compareReviewsDateDesc, mapReviewFromApiToModel, mapReviewFromModelToApi } from 'pods/house/house.mappers';
 
 export const dbRepository: HouseRepository = {
   getHouseListByCountry: async (country_code: string) => {
@@ -48,6 +48,6 @@ export const dbRepository: HouseRepository = {
         reviews: 1
       } }
     );
-    return mapReviewFromModelToApi(value?.reviews.sort(compareReviews)[0]);   
+    return mapReviewFromModelToApi(value?.reviews.sort(compareReviewsDateDesc)[0]);   
   },
 };

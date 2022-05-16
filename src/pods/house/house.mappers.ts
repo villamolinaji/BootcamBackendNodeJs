@@ -19,9 +19,16 @@ export const mapHouseFromModelToApi = (house: model.House): apiModel.House => ({
 export const mapReviewsListFromModelToApi = (
   reviewList: model.Review[], house_id: string
 ): apiModel.Review[] => {
-  let topReviewsList = reviewList?.sort(compareReviews).slice(0, 5).map(mapReviewFromModelToApi);
-  topReviewsList.forEach(x => x.house_id = house_id);
-  return topReviewsList;
+  if (Array.isArray(reviewList))
+  {
+    let topReviewsList = reviewList?.sort(compareReviewsDateDesc).slice(0, 5).map(mapReviewFromModelToApi);
+    topReviewsList.forEach(x => x.house_id = house_id);
+    return topReviewsList;
+  }
+  else
+  {
+    return [];
+  }
 }
 
 export const mapReviewFromModelToApi = (
@@ -36,9 +43,12 @@ export const mapReviewFromModelToApi = (
 
 export const mapHouseListFromModelToApi = (
   houseList: model.House[]
-): apiModel.House[] => houseList.map(mapHouseFromModelToApi);
+): apiModel.House[] => 
+Array.isArray(houseList)
+    ? houseList.map(mapHouseFromModelToApi)
+    : [];
 
-export function compareReviews(a: model.Review, b: model.Review) {
+export function compareReviewsDateDesc(a: model.Review, b: model.Review) {
   if (a.date < b.date) {
     return 1;
   }
@@ -56,25 +66,3 @@ export const mapReviewFromApiToModel = (review: apiModel.Review): model.Review =
   reviewer_id: '',
   reviewer_name: review.reviewer_name,  
 });
-
-/*export const mapHouseFromApiToModel = (house: apiModel.House): model.House => ({
-    _id: house.id,
-    name: house.title,
-    summary: house.description,
-    address: 
-    {
-      street: house.street,
-      market: house.city,
-      country: house.country,   
-    },
-    bedrooms: house.bedrooms,
-    beds: house.beds,
-    bathrooms: house.bathrooms,
-    images: house.images.map(mapImageFromApiToModel),
-    //reviews: house.reviews, 
-});*/
-
-
-/*export const mapImageFromApiToModel = (image: string): model.Image => ({  
-  picture_url: image
-});*/
