@@ -14,5 +14,9 @@
 npm install @types/mongodb --save-dev
 * path: npm install --save path
 * test: npm install jest @types/jest ts-jest --save-dev
+* mongoose: npm install mongoose --save; npm install @types/mongoose --save-dev
+* Uninstall MongoDB: npm uninstall mongodb --save;
+npm uninstall @types/mongodb --save-dev
+* supertes: npm install supertest --save-dev
 
 ## Estructura carpetas

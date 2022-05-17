@@ -1,26 +1,23 @@
-import { ObjectId } from 'mongodb';
 import { HouseRepository } from './house.repository';
-import { House } from '../house.model';
-import { getDBInstance } from 'core/servers';
+import { houseContext } from "../house.context";
 import { Review } from 'pods/house/house.api-model';
 import { compareReviewsDateDesc, mapReviewFromApiToModel, mapReviewFromModelToApi } from 'pods/house/house.mappers';
+import mongoose from 'mongoose';
 
 export const dbRepository: HouseRepository = {
   getHouseListByCountry: async (country_code: string) => {
-    const db = getDBInstance();
-    return await db.collection<House>('listingsAndReviews').find(
+    return await houseContext.find(
       {"address.country_code": country_code}, 
       { projection: {
         _id: 1, 
         name: 1, 
         "images.picture_url": 1 
       }}
-    ).toArray();
+    ).lean();
   },
-  getHouse: async (id: string) => {
-    const db = getDBInstance();
-    return await db.collection<House>('listingsAndReviews').findOne(
-      {_id: id},
+  getHouse: async (id: string) => {    
+    return await houseContext.findOne(
+      {_id: id}/*,
       { projection: { 
         _id: 1, 
         name: 1, 
@@ -33,13 +30,12 @@ export const dbRepository: HouseRepository = {
         bathrooms: 1, 
         "images.picture_url": 1, 
         reviews: 1 
-      }}
-    );
+      }}*/
+    ).lean();
   },  
-  insertReview: async (review: Review) => {
-    const db = getDBInstance();
-    review.id = new ObjectId().toHexString();
-    const { value } = await db.collection<House>('listingsAndReviews').findOneAndUpdate(
+  insertReview: async (review: Review) => {    
+    review.id = new mongoose.Types.ObjectId().toHexString();
+    const result = await houseContext.findOneAndUpdate(
       {
         _id: review.house_id,
       },
@@ -48,6 +44,6 @@ export const dbRepository: HouseRepository = {
         reviews: 1
       } }
     );
-    return mapReviewFromModelToApi(value?.reviews.sort(compareReviewsDateDesc)[0]);   
+    return mapReviewFromModelToApi(result?.reviews.sort(compareReviewsDateDesc)[0]);   
   },
 };
